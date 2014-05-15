@@ -22,6 +22,7 @@ public class SmsEncoder extends ProtocolEncoderAdapter {
 		CharsetEncoder ce = charset.newEncoder();
 		IoBuffer buffer = IoBuffer.allocate(100).setAutoExpand(true);
 		buffer.putInt(sms.getProto());
+		buffer.putString(sms.getClass().getName(), 64, ce);
 		sms.encode(buffer, ce);
 		buffer.flip();
 		out.write(buffer); 

@@ -21,9 +21,12 @@ public class SmsDecoder  extends CumulativeProtocolDecoder {
 	protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 		CharsetDecoder cd = charset.newDecoder();
 		int proto = in.getInt();
-		ISmsObject sms = SmsObjectFactory.newSmsObject(proto);
+		String className = in.getString(64, cd);
+		ISmsObject sms = (ISmsObject)Class.forName(className).newInstance();
+		sms.setProto(proto);
+		sms.setSession(session);
 		sms.decode(in, cd);
 		out.write(sms);
-		return false;
+		return true;
 	}
 }
