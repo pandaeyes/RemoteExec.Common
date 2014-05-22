@@ -7,6 +7,7 @@ public class Command {
 	private String dir = "";
 	private String cmd = "";
 	private String groups = "";
+	private String username = "";
 			
 	public String getKey() {
 		return key;
@@ -37,5 +38,11 @@ public class Command {
 	}
 	public void setGroups(String groups) {
 		this.groups = groups;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

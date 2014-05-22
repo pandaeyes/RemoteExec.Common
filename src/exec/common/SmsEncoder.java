@@ -1,5 +1,6 @@
 package exec.common;
 
+import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 
@@ -20,11 +21,12 @@ public class SmsEncoder extends ProtocolEncoderAdapter {
 	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
 		ISmsObject sms = (ISmsObject)message;
 		CharsetEncoder ce = charset.newEncoder();
-		IoBuffer buffer = IoBuffer.allocate(100).setAutoExpand(true);
+		IoBuffer buffer = IoBuffer.allocate(128).setAutoExpand(true);
+		buffer.order(ByteOrder.LITTLE_ENDIAN);
 		buffer.putInt(sms.getProto());
 		buffer.putString(sms.getClass().getName(), 64, ce);
 		sms.encode(buffer, ce);
 		buffer.flip();
-		out.write(buffer); 
+		out.write(buffer.slice()); 
 	}
 }

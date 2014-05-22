@@ -42,15 +42,26 @@ public abstract class AbstractSmsObject implements ISmsObject{
 	}
 	
 	public void putString(String val, IoBuffer buffer, CharsetEncoder ce) throws Exception {
-		buffer.putString(val, 64, ce);
+		buffer.putString(val, 63, ce);
 	}
 	
 	public String getString(int size, IoBuffer in, CharsetDecoder cd) throws Exception {
+		int l = in.limit();
+		int p = in.position();
+		if ((size + p) > l) {
+			size = l - p;
+		}
 		return in.getString(size, cd);
 	}
 	
 	public String getString(IoBuffer in, CharsetDecoder cd) throws Exception {
-		return in.getString(64, cd);
+		int size = 63;
+		int l = in.limit();
+		int p = in.position();
+		if ((size + p) > l) {
+			size = l - p;
+		}
+		return in.getString(size, cd);
 	}
 	
 	public void putInt(int val, IoBuffer buffer) {
