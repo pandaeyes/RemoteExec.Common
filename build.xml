@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="RemoteExec.Common" default="dist">
+   <target name="clean">
+        <echo>==============</echo>
+        <echo> RemoteExec.Common: clean </echo>
+        <echo>==============</echo>
+        <delete dir="${basedir}/dist" />
+    </target>
+    
+    <target name="init" depends="clean">
+        <echo>=============</echo>
+        <echo> RemoteExec.Common: init </echo>
+        <echo>=============</echo>
+        <mkdir dir="${basedir}/dist" />
+        <mkdir dir="${basedir}/dist/server" />
+        <mkdir dir="${basedir}/dist/client" />
+    </target>
+	
+	<target name="build" depends="init">
+		<ant dir="${basedir}/../RemoteExec.Srv" target="dist" />
+		<ant dir="${basedir}/../RemoteExec.Client" target="dist" />
+    </target>
+	
+    <target name="dist" depends="build">
+        <echo>=============</echo>
+        <echo> RemoteExec.Common: dist </echo>
+        <echo>=============</echo>
+        <copy todir="${basedir}/dist/server">
+            <fileset file="${basedir}/../RemoteExec.Srv/dist/*.jar" />
+        </copy>
+        <copy todir="${basedir}/dist/client">
+            <fileset file="${basedir}/../RemoteExec.Client/dist/*.jar" />
+        </copy>
+    </target>
+</project>
