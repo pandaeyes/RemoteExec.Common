@@ -9,6 +9,8 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoderAdapter;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
+import exec.proto.SmsObjectS102;
+
 public class SmsEncoder extends ProtocolEncoderAdapter {
 
 	private final Charset charset; 
@@ -34,6 +36,6 @@ public class SmsEncoder extends ProtocolEncoderAdapter {
 		buf.putInt(packetLength);
 		buf.put(buffer);
 		buf.flip();
-		out.write(buf.slice()); 
+		out.write(buf); 
 	}
 }

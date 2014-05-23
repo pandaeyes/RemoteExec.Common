@@ -27,9 +27,13 @@
         <echo>=============</echo>
         <copy todir="${basedir}/dist/server">
             <fileset file="${basedir}/../RemoteExec.Srv/dist/*.jar" />
+            <fileset file="${basedir}/../RemoteExec.Srv/dist/*.bat" />
+            <fileset file="${basedir}/../RemoteExec.Srv/dist/*.sh" />
+            <fileset file="${basedir}/../RemoteExec.Srv/dist/config.xml.template" />
         </copy>
         <copy todir="${basedir}/dist/client">
             <fileset file="${basedir}/../RemoteExec.Client/dist/*.jar" />
+        	<fileset file="${basedir}/../RemoteExec.Client/dist/*.bat" />
         </copy>
     </target>
 </project>
