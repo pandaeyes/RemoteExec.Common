@@ -35,7 +35,7 @@ public class SmsObjectS101 extends AbstractSmsObject {
 			putString(cmd.getKey(), buffer, ce);
 			putString(cmd.getDesc(), buffer, ce);
 			putString(cmd.getDir(), buffer, ce);
-			putString(cmd.getCmd(), buffer, ce);
+			putString(cmd.getCmd(), 124, buffer, ce);
 		}
 	}
 	
@@ -49,7 +49,7 @@ public class SmsObjectS101 extends AbstractSmsObject {
 			key = getString(in, cd);
 			desc = getString(in, cd);
 			dir = getString(in, cd);
-			cmd = getString(in, cd);
+			cmd = getString(124, in, cd);
 			command.setKey(key);
 			command.setDesc(desc);
 			command.setDir(dir);
