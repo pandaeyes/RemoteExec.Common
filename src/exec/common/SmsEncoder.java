@@ -21,12 +21,19 @@ public class SmsEncoder extends ProtocolEncoderAdapter {
 	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
 		ISmsObject sms = (ISmsObject)message;
 		CharsetEncoder ce = charset.newEncoder();
-		IoBuffer buffer = IoBuffer.allocate(128).setAutoExpand(true);
+		IoBuffer buffer = IoBuffer.allocate(16).setAutoExpand(true);
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
 		buffer.putInt(sms.getProto());
 		buffer.putString(sms.getClass().getName(), 64, ce);
 		sms.encode(buffer, ce);
 		buffer.flip();
-		out.write(buffer.slice()); 
+		
+		int packetLength = buffer.limit();
+		IoBuffer buf = IoBuffer.allocate(packetLength + 4).setAutoExpand(true);
+		buf.order(ByteOrder.LITTLE_ENDIAN);
+		buf.putInt(packetLength);
+		buf.put(buffer);
+		buf.flip();
+		out.write(buf.slice()); 
 	}
 }

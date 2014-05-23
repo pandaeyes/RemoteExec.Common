@@ -10,6 +10,7 @@ import exec.common.AbstractSmsObject;
 public class SmsObjectS100 extends AbstractSmsObject {
 	
 	private int succ = 0; // 0 失败 1成功
+	private String msg = "";
 
 	public SmsObjectS100() {
 		setProto(100);
@@ -23,13 +24,23 @@ public class SmsObjectS100 extends AbstractSmsObject {
 		this.succ = succ;
 	}
 	
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	@Override
 	public void encode(IoBuffer buffer, CharsetEncoder ce) throws Exception {
 		putInt(succ, buffer);
+		putString(msg, buffer, ce);
 	}
 
 	@Override
 	public void decode(IoBuffer in, CharsetDecoder cd) throws Exception {
 		succ = getInt(in);
+		msg = getString(in, cd);
 	}
 }

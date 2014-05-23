@@ -8,6 +8,7 @@ public class Command {
 	private String cmd = "";
 	private String groups = "";
 	private String username = "";
+	private boolean oneself = false; // 是否独占
 			
 	public String getKey() {
 		return key;
@@ -44,5 +45,11 @@ public class Command {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public boolean isOneself() {
+		return oneself;
+	}
+	public void setOneself(boolean oneself) {
+		this.oneself = oneself;
 	}
 }

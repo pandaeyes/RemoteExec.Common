@@ -46,21 +46,11 @@ public abstract class AbstractSmsObject implements ISmsObject{
 	}
 	
 	public String getString(int size, IoBuffer in, CharsetDecoder cd) throws Exception {
-		int l = in.limit();
-		int p = in.position();
-		if ((size + p) > l) {
-			size = l - p;
-		}
 		return in.getString(size, cd);
 	}
 	
 	public String getString(IoBuffer in, CharsetDecoder cd) throws Exception {
 		int size = 63;
-		int l = in.limit();
-		int p = in.position();
-		if ((size + p) > l) {
-			size = l - p;
-		}
 		return in.getString(size, cd);
 	}
 	

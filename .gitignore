@@ -1,4 +1,6 @@
 *.class
+dist/*
+build/*
 bin/*
 bin/**/*.class
 Thumbs.db

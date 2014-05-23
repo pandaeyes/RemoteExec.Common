@@ -14,6 +14,7 @@ public class SmsObjectC100 extends AbstractSmsObject {
 	
 	private String name = "";
 	private String signature = "";
+	private String version = "";
 	
 	public SmsObjectC100() {
 		setProto(100);
@@ -35,13 +36,23 @@ public class SmsObjectC100 extends AbstractSmsObject {
 		this.signature = signature;
 	}
 
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
 	public void encode(IoBuffer buffer, CharsetEncoder ce) throws Exception {
 		buffer.putString(name, 64, ce);
 		buffer.putString(signature, 64, ce);
+		buffer.putString(version, 64, ce);
 	}
 	
 	public void decode(IoBuffer in, CharsetDecoder cd) throws Exception {
 		name = in.getString(64, cd);
 		signature = in.getString(64, cd);
+		version = in.getString(64, cd);
 	}
 }
