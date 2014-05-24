@@ -11,6 +11,7 @@ public class SmsObjectS100 extends AbstractSmsObject {
 	
 	private int succ = 0; // 0 失败 1成功
 	private String msg = "";
+	private int group = 1;	//9 是管理员
 
 	public SmsObjectS100() {
 		setProto(100);
@@ -32,15 +33,25 @@ public class SmsObjectS100 extends AbstractSmsObject {
 		this.msg = msg;
 	}
 
+	public int getGroup() {
+		return group;
+	}
+
+	public void setGroup(int group) {
+		this.group = group;
+	}
+
 	@Override
 	public void encode(IoBuffer buffer, CharsetEncoder ce) throws Exception {
 		putInt(succ, buffer);
 		putString(msg, buffer, ce);
+		putInt(group, buffer);
 	}
 
 	@Override
 	public void decode(IoBuffer in, CharsetDecoder cd) throws Exception {
 		succ = getInt(in);
 		msg = getString(in, cd);
+		group = getInt(in);
 	}
 }
